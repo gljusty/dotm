@@ -25,15 +25,18 @@ const useSpeech = ({ lang, auto }: Partial<SpeechProps>): [any, any] => {
         speechRecognizer.grammars = grammarList;
         speechRecognizer.continuous = true;
         speechRecognizer.lang = lang || "en-US";
-        speechRecognizer.autoplay = auto || true;
+        speechRecognizer.autoplay = auto || false;
         speechRecognizer.onstart = () => {
           console.log("started listening");
         };
         speechRecognizer.onsoundstart = () => {
           console.log("sound detected");
         };
-        speechRecognizer.onresult = (e: Event) => {
-          console.log(e.target);
+        speechRecognizer.onresult = (e: any) => {
+          console.log(e.results.length)
+          console.log(e.results[e.results.length - 1][0].transcript);
+          const el = document.querySelector("#_result")
+          el!.innerHTML = e.results[e.results.length - 1][0].transcript
         };
         speechRecognizer.onend = () => {
           console.log("ended");

@@ -101,13 +101,23 @@ function App() {
       <Button
         sx={{ position: "absolute", left: "25%", top: "25%" }}
         onClick={() => {
-          recognizer!.start();
+          recognizer!.stop();
         }}
       >
         end
       </Button>
       <div ref={mountRef} />
-      <span>test test</span>
+      <div
+        id="_result"
+        style={{
+          position: "absolute",
+          color: "whitesmoke",
+          left: "25%",
+          top: "75%",
+        }}
+      >
+        initial value
+      </div>
     </div>
   );
 }
