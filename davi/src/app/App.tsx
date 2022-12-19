@@ -93,11 +93,19 @@ function App() {
   return (
     <div className="App">
       <Button
-        sx={{ position: "absolute", left: "25%", top: "25%" }}
+        sx={{ position: "absolute", left: "25%", top: "15%" }}
         onClick={() => {
           recognizer!.start();
         }}
       />
+      <Button
+        sx={{ position: "absolute", left: "25%", top: "25%" }}
+        onClick={() => {
+          recognizer!.start();
+        }}
+      >
+        end
+      </Button>
       <div ref={mountRef} />
       <span>test test</span>
     </div>
