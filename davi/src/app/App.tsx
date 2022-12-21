@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Button } from "@mantine/core";
+import { Button, Group } from "@mantine/core";
 import useSpeech from "../hooks/useSpeech";
 import * as THREE from "three";
 import "./App.css";
@@ -18,8 +18,8 @@ function App() {
 
   useEffect(() => {
     controller.init();
-    recognizer && recognizer.start();
-  }, [recognizer]);
+  }, []);
+
   const mountRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -35,7 +35,7 @@ function App() {
 
     const vertices = [];
 
-    for (let i = 0; i < 500; i++) {
+    for (let i = 0; i < 1000; i++) {
       const x = THREE.MathUtils.randFloatSpread(2);
       const y = THREE.MathUtils.randFloatSpread(2);
       const z = THREE.MathUtils.randFloatSpread(90);
@@ -55,14 +55,14 @@ function App() {
 
     const backgroundPoints = new THREE.Points(pointSpreadGeometry, material);
     const backgroundRing = new THREE.Points(
-      new THREE.RingGeometry(20, 20, 200),
+      new THREE.RingGeometry(19, 20, 200),
       material
     );
     scene.add(backgroundPoints, backgroundRing);
     scene.fog = new THREE.Fog("rgb(10,120,225)", 0, 20);
 
     camera.position.z = 50;
-    let ringScale = 1.0;
+    let ringScale = 0.6;
     let toggle = 0;
     var animate = function () {
       requestAnimationFrame(animate);
@@ -92,20 +92,23 @@ function App() {
   }, []);
   return (
     <div className="App">
-      <Button
-        sx={{ position: "absolute", left: "25%", top: "15%" }}
-        onClick={() => {
-          recognizer!.start();
-        }}
-      />
-      <Button
-        sx={{ position: "absolute", left: "25%", top: "25%" }}
-        onClick={() => {
-          recognizer!.stop();
-        }}
-      >
-        end
-      </Button>
+      <Group sx={{ position: "absolute", top: "75%", left: "50%" }}>
+        <Button
+          onClick={() => {
+            recognizer!.start();
+          }}
+        >
+          Start
+        </Button>
+        <Button
+          onClick={() => {
+            recognizer!.stop();
+          }}
+        >
+          Stop
+        </Button>
+      </Group>
+
       <div ref={mountRef} />
       <div
         id="_result"
